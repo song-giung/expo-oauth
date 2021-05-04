@@ -1,14 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
+import * as Facebook from "expo-auth-session/providers/facebook";
+import { ResponseType } from "expo-auth-session";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: "expoClientId.google",
+  const [request, response, promptAsync] = Facebook.useAuthRequest({
+    clientId: "clientId",
+    scopes: ["email"],
   });
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export default function App() {
     <View style={styles.container}>
       <Button
         disabled={!request}
-        title="Google Login"
+        title="Facebook Login"
         onPress={() => {
           promptAsync();
         }}
